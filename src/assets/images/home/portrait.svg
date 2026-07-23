@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#141614"/>
+  <circle cx="400" cy="400" r="280" fill="none" stroke="#2a2e2b" stroke-width="2"/>
+  <circle cx="400" cy="400" r="180" fill="none" stroke="#404742" stroke-width="1" stroke-dasharray="8 8"/>
+  <rect x="250" y="250" width="300" height="300" fill="none" stroke="#b0b0b0" stroke-width="1.5"/>
+  <text x="400" y="750" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="600" fill="#b0b0b0" text-anchor="middle" letter-spacing="4">DAX VO</text>
+  <text x="400" y="800" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#666" text-anchor="middle" letter-spacing="6">SOFTWARE ENGINEER</text>
+  <line x1="200" y1="860" x2="600" y2="860" stroke="#2a2e2b" stroke-width="1"/>
+</svg>

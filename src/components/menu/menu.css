@@ -1,0 +1,253 @@
+/* Deadlock Studios Navigation Bar - Codegrid Neue Montreal Font Styling */
+nav.deadlock-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.25rem 2rem;
+  z-index: 300;
+  transition: padding 0.3s ease;
+}
+
+.deadlock-nav .container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.75rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  z-index: 300;
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+}
+
+
+
+.nav-logo a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.nav-logo img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+}
+
+.brand-title {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-logo a:hover .brand-title {
+  color: var(--text-white);
+}
+
+nav.deadlock-nav .nav-toggler {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+nav.deadlock-nav .nav-toggler .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+}
+
+.mono {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+nav.deadlock-nav .nav-toggler .btn:hover .mono {
+  color: var(--text-white);
+}
+
+nav.deadlock-nav .nav-toggler-hamburger {
+  position: relative;
+  width: 1.4rem;
+  height: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.28rem;
+}
+
+nav.deadlock-nav .nav-toggler-hamburger span {
+  position: relative;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--text);
+  will-change: transform;
+  transition: background-color 0.3s ease;
+}
+
+nav.deadlock-nav .nav-toggler .btn:hover .nav-toggler-hamburger span {
+  background-color: var(--text-white);
+}
+
+/* Scroll State: top of page (transparent background) */
+nav.deadlock-nav.top .nav-container {
+  background-color: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-color: rgba(255, 255, 255, 0);
+}
+
+/* Fullscreen Overlay (Deadlock Studios Overlay Layout with Codegrid Typography) */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 250;
+  overflow: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.nav-overlay .nav-items {
+  position: absolute;
+  top: 45%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translate(0%, -50%);
+  gap: 0.5rem;
+}
+
+.nav-overlay .nav-overlay-logo {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.nav-overlay .nav-overlay-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+}
+
+.nav-overlay .nav-items .nav-item {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+/* Codegrid Signature H1 / H2 font style for menu overlay links */
+.nav-overlay .nav-items .nav-item a {
+  color: var(--text);
+  font-family: var(--font-main);
+  font-size: clamp(3.2rem, 6.5vw, 6.5rem);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -4px;
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  user-select: none;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.nav-overlay .nav-items .nav-item.active a,
+.nav-overlay .nav-items .nav-item a:hover {
+  color: var(--text-white);
+}
+
+.nav-overlay .nav-footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 2.5rem;
+}
+
+.nav-overlay .nav-footer .nav-footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-overlay .nav-footer .nav-footer-item {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-overlay .nav-footer .nav-footer-item a {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-overlay .nav-footer .nav-footer-item a:hover {
+  color: var(--text-white);
+}
+
+@media (max-width: 900px) {
+  nav.deadlock-nav {
+    padding: 1rem;
+  }
+
+  .nav-container {
+    padding: 0.6rem 1.25rem;
+  }
+
+  .brand-title {
+    font-size: 0.7rem;
+  }
+
+  .nav-overlay .nav-items .nav-item a {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    letter-spacing: -2.5px;
+    line-height: 0.9;
+  }
+
+  .nav-overlay .nav-footer .nav-footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}

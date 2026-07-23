@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#161816"/>
+  <circle cx="400" cy="300" r="180" fill="none" stroke="#b0b0b0" stroke-width="2"/>
+  <line x1="220" y1="300" x2="580" y2="300" stroke="#b0b0b0" stroke-width="1"/>
+  <text x="400" y="520" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="4">01 / HOMELAB</text>
+</svg>

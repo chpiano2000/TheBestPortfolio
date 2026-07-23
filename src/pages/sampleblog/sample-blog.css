@@ -1,0 +1,201 @@
+.sample-blog-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem 2rem;
+  background: var(--bg);
+  position: relative;
+}
+
+.blog-article-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.markdown-rendered-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.markdown-rendered-content h1 {
+  font-family: var(--font-main);
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -3px;
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+}
+
+.markdown-rendered-content em {
+  font-style: italic;
+  display: inline;
+}
+
+.blog-article-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 2rem;
+}
+
+.blog-article-title {
+  font-family: var(--font-main);
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -3px;
+  color: var(--text-white);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.blog-article-meta {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  color: #888888;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-article-meta .separator {
+  color: #555555;
+}
+
+.blog-article-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.blog-tag {
+  font-family: var(--font-main);
+  font-size: 0.7rem;
+  color: #888888;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.markdown-rendered-content h2 {
+  font-family: var(--font-main);
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: -1.5px;
+  color: var(--text-white);
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  border-left: 2px solid var(--text-white);
+  padding-left: 1rem;
+}
+
+.markdown-rendered-content h3 {
+  font-family: var(--font-main);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-white);
+  margin-top: 1.5rem;
+}
+
+.markdown-rendered-content p {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text);
+  font-weight: 400;
+  text-transform: none;
+  max-width: 650px;
+}
+
+.markdown-rendered-content strong {
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+.markdown-rendered-content ul,
+.markdown-rendered-content ol {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 650px;
+}
+
+.markdown-rendered-content li {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text);
+  text-transform: none;
+}
+
+.markdown-rendered-content hr {
+  border: none;
+  height: 0.65px;
+  background: var(--text);
+  margin: 2.5rem 0;
+  opacity: 0.5;
+  max-width: 650px;
+}
+
+.markdown-rendered-content blockquote {
+  border-left: 3px solid var(--text-white);
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  margin: 1.5rem 0;
+  max-width: 650px;
+}
+
+.markdown-rendered-content blockquote p {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: var(--text-white);
+  font-style: italic;
+  text-transform: none;
+}
+
+.markdown-rendered-content code {
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.85rem;
+  color: var(--text-white);
+  text-transform: none;
+}
+
+.markdown-rendered-content pre {
+  background: #121412;
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  text-transform: none;
+  max-width: 650px;
+}
+
+.markdown-rendered-content pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-white);
+}
+
+@media (max-width: 900px) {
+  .blog-article-title,
+  .markdown-rendered-content h1 {
+    font-size: 2.2rem;
+    letter-spacing: -1.5px;
+  }
+
+  .markdown-rendered-content h2 {
+    font-size: 1.6rem;
+  }
+}

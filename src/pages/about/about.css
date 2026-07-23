@@ -1,0 +1,148 @@
+.about-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem 2rem;
+  background: var(--bg);
+}
+
+.about-header {
+  margin-bottom: 4rem;
+}
+
+.about-grid {
+  display: flex;
+  gap: 6rem;
+  align-items: flex-start;
+}
+
+.about-img-col {
+  flex: 2;
+}
+
+.portrait-frame {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-text-col {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.lead-para {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--text-white);
+  font-weight: 500;
+}
+
+.body-para {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.about-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+.meta-title {
+  font-size: 0.7rem;
+  color: #666;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.meta-item p {
+  color: var(--text-white);
+}
+
+.experience-section {
+  margin-top: 8rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 4rem;
+}
+
+.experience-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--text-white);
+}
+
+.exp-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-row {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  column-gap: 2rem;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  transition: padding-left 0.3s ease, border-bottom-color 0.3s ease;
+  text-decoration: none;
+}
+
+.exp-row:hover {
+  padding-left: 1rem;
+  border-bottom-color: var(--text-white);
+}
+
+.exp-year {
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.exp-row:hover .exp-year {
+  color: var(--text-white);
+}
+
+.exp-role {
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+.exp-company {
+  color: var(--text);
+  text-align: right;
+  transition: color 0.3s ease;
+}
+
+.exp-row:hover .exp-company {
+  color: var(--text-white);
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .exp-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .exp-company {
+    text-align: left;
+  }
+}

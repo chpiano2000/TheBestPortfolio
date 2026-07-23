@@ -1,0 +1,164 @@
+.experience-list-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem 2rem;
+  background: var(--bg);
+}
+
+.experience-list-header {
+  margin-bottom: 6rem;
+}
+
+.experience-resume-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-top: 4rem;
+}
+
+.experience-resume-block {
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  transition: border-top-color 0.4s ease;
+}
+
+.experience-resume-block:hover {
+  border-top-color: var(--text-white);
+}
+
+.experience-resume-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+/* Left Column Styling */
+.experience-resume-meta-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.experience-resume-meta-col .company-name {
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  color: var(--text);
+  transition: color 0.4s ease;
+}
+
+.experience-resume-block:hover .company-name {
+  color: var(--text-white);
+}
+
+.experience-meta-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-top: 1px solid rgba(176, 176, 176, 0.1);
+  padding-top: 1.5rem;
+}
+
+.meta-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  gap: 1.5rem;
+}
+
+.meta-detail-label {
+  color: #666;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.meta-detail-val {
+  color: var(--text-white);
+  text-align: right;
+  font-weight: 500;
+}
+
+.meta-detail-val.stack-val {
+  color: var(--text);
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+}
+
+/* Right Column Styling */
+.experience-resume-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.company-tagline {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: var(--text-white);
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+
+.responsibilities-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.responsibilities-title {
+  font-size: 0.7rem;
+  color: #666;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.responsibilities-body {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--text);
+  text-transform: uppercase;
+  transition: color 0.4s ease;
+}
+
+.experience-resume-block:hover .responsibilities-body {
+  color: var(--text-white);
+}
+
+/* Responsive Styling */
+@media (max-width: 900px) {
+  .experience-list-page {
+    padding: 6rem 1.5rem;
+  }
+
+  .experience-resume-list {
+    gap: 3rem;
+  }
+
+  .experience-resume-block {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .experience-resume-row {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .experience-resume-meta-col .company-name {
+    font-size: 2.5rem;
+  }
+
+  .experience-resume-content-col {
+    gap: 1.5rem;
+  }
+
+  .company-tagline {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,95 @@
+.sample-experience-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 8rem 2rem 4rem 2rem;
+  background: var(--bg);
+  position: relative;
+}
+
+.experience-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.experience-header {
+  margin-bottom: 5rem;
+}
+
+.experience-header h1 {
+  font-size: 5rem;
+  color: var(--text-white);
+  line-height: 1.1;
+}
+
+.experience-tagline {
+  font-size: 0.85rem;
+  color: #888;
+  letter-spacing: 2px;
+  margin-top: 1rem;
+}
+
+.experience-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+.experience-meta-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+}
+
+.meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.meta-label {
+  font-size: 0.7rem;
+  color: #666;
+  font-family: var(--font-main);
+  letter-spacing: 1px;
+}
+
+.meta-value {
+  font-size: 0.9rem;
+  color: var(--text-white);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.experience-content {
+  border-top: 1px solid var(--border-color);
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.desc-title {
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+.desc-body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text);
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .experience-header h1 {
+    font-size: 3rem;
+  }
+
+  .experience-info-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}

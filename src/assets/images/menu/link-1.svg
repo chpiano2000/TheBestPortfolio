@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <rect width="600" height="800" fill="#181c19"/>
+  <circle cx="300" cy="350" r="160" fill="none" stroke="#b0b0b0" stroke-width="2"/>
+  <text x="300" y="600" font-family="'Syne', sans-serif" font-size="32" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4">ABOUT</text>
+  <text x="300" y="640" font-family="'Space Grotesk', sans-serif" font-size="12" fill="#888" text-anchor="middle" letter-spacing="3">PHILOSOPHY & PROFILE</text>
+</svg>

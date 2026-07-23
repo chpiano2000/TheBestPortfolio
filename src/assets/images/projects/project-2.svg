@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#181618"/>
+  <rect x="250" y="150" width="300" height="300" fill="none" stroke="#b0b0b0" stroke-width="2"/>
+  <rect x="280" y="180" width="240" height="240" fill="none" stroke="#666" stroke-width="1"/>
+  <text x="400" y="520" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="4">02 / TEACHING AGENT</text>
+</svg>

@@ -1,0 +1,387 @@
+.Home {
+  width: 100%;
+  min-height: 100vh;
+  padding: 6rem 2rem 2rem 2rem;
+  background: var(--bg);
+  position: relative;
+}
+
+.hero {
+  width: 100%;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.hero .headers {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  position: relative;
+  overflow: hidden;
+}
+
+h1 .h1 {
+  position: relative;
+}
+
+.h1-revealer {
+  position: relative;
+}
+
+.h1-revealer:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  display: block;
+  width: 120%;
+  height: 7rem;
+  background: #191c1a;
+  z-index: 0;
+}
+
+.hero .headers .header-2 {
+  margin-top: 4rem;
+}
+
+.Home h1 {
+  font-size: clamp(4.5rem, 7.5vw, 6.5rem);
+}
+
+.indent-visual {
+  margin-left: 2.2vw;
+  transition: margin-left 0.3s ease;
+}
+
+.indent-dev {
+  margin-left: 14vw;
+  transition: margin-left 0.3s ease;
+}
+
+.indent-year {
+  margin-left: 10vw;
+  transition: margin-left 0.3s ease;
+}
+
+.hero-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.hero-sub-left {
+  flex: 1;
+}
+
+.hero-status-content .status-col-indicator {
+  display: flex;
+  align-items: flex-start;
+  flex: 0 0 auto;
+  width: 4.5rem;
+}
+
+/* Scroll Down Indicator (Double Circle) styling matched to footer */
+.hero-scroll-indicator {
+  display: flex;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding-top: 0.15rem; /* Offsets slightly to align circles with the top of text */
+}
+
+.hero-scroll-indicator:hover .scroll-arrow {
+  background: var(--text-white);
+  transform: translateY(3px);
+}
+
+.hero-scroll-indicator:hover .scroll-arrow span {
+  color: var(--bg);
+}
+
+.hero-scroll-indicator .scroll-arrow {
+  background: var(--text);
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: background 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-scroll-indicator .scroll-arrow span {
+  opacity: 1;
+  color: var(--bg);
+  font-weight: bold;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.hero-sub-right {
+  flex: 2;
+}
+
+.hero-status-content {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  height: calc(130px / 2 + 1.5rem);
+  box-sizing: border-box;
+}
+
+.hero-status-content .status-col p {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.hero-status-content .status-col .company-link {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-status-content .status-col .company-link:hover {
+  color: var(--text-white);
+}
+
+.hero-status-content .status-col .company-link::after {
+  content: " \2197";
+  font-size: 0.75em;
+  margin-left: 0.2rem;
+  opacity: 0.5;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+  transform: translate(0, 0);
+  display: inline-block;
+}
+
+.hero-status-content .status-col .company-link:hover::after {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.hero-status-content .status-col {
+  flex: 1;
+}
+
+/* Project Navigation Drawer Section */
+.projects-nav {
+  margin: 8rem 0 4rem 0;
+  width: 100%;
+}
+
+.projects-nav-container {
+  width: 85%;
+  margin-left: auto;
+}
+
+.project-link {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--text);
+  height: 120px;
+  padding: 1rem 0;
+  transition: padding 0.3s ease;
+}
+
+.project-link:hover {
+  padding-left: 0.5rem;
+}
+
+.project-l {
+  display: flex;
+  align-items: center;
+  flex: 4;
+}
+
+.project-date {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-dir {
+  flex: 0.5;
+  text-align: right;
+  font-size: 1.5rem;
+}
+
+.project-link .project-link-img {
+  margin-right: 1.5rem;
+  width: 0;
+  height: 90px;
+  overflow: hidden;
+  border-radius: 2px;
+  transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.project-link:hover .project-link-img {
+  width: 140px;
+}
+
+.project-link img {
+  width: 140px;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.project-link:hover img {
+  transform: scale(1.05);
+}
+
+/* About Section */
+.about-section {
+  margin: 6rem 0 2rem 0;
+  width: 100%;
+  padding: 6rem 0 2rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.about-container {
+  width: 85%;
+  margin-left: auto;
+  display: flex;
+  gap: 8rem;
+}
+
+.about-col:nth-child(1) {
+  flex: 3;
+}
+
+.about-col:nth-child(2) {
+  flex: 2;
+}
+
+.section-tag {
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+.about-bio {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text);
+  max-width: 650px;
+  text-transform: none;
+}
+
+.about-bio strong {
+  color: var(--text-white);
+  font-weight: 600;
+}
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.socials a {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 1048px) {
+  .Home h1 {
+    font-size: 4rem;
+    line-height: 0.85;
+    letter-spacing: -2.5px;
+  }
+
+  .Home h2 {
+    font-size: 2rem;
+    letter-spacing: -1.5px;
+  }
+
+  .Home {
+    padding: 5rem 1.5rem 1.5rem 1.5rem;
+  }
+
+  .hero .headers {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero .headers .header-2 {
+    align-self: flex-end;
+  }
+
+  .indent-visual {
+    margin-left: 2vw;
+  }
+
+  .indent-dev {
+    margin-left: 12vw;
+  }
+
+  .indent-year {
+    margin-left: 8vw;
+  }
+
+  .hero-sub {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .hero-sub-right {
+    width: 100%;
+  }
+
+  .hero-status-content {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+    height: auto;
+    padding-bottom: 0;
+  }
+
+  .projects-nav-container,
+  .about-container {
+    width: 100%;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .project-date {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .indent-visual {
+    margin-left: 0;
+  }
+
+  .indent-dev {
+    margin-left: 4vw;
+  }
+
+  .indent-year {
+    margin-left: 2vw;
+  }
+
+  .hero-status-content {
+    gap: 0.75rem;
+  }
+
+  .hero-status-content .status-col p {
+    font-size: 0.65rem;
+  }
+}

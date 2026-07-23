@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#181717"/>
+  <rect x="60" y="60" width="680" height="380" fill="none" stroke="#302c2c" stroke-width="1"/>
+  <text x="400" y="240" font-family="'Syne', sans-serif" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="4">THE ART OF MOTION REVEALS</text>
+  <text x="400" y="280" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#888" text-anchor="middle" letter-spacing="2">TECHNIQUE / 2024</text>
+</svg>

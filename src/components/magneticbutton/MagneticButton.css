@@ -1,0 +1,44 @@
+.m-btn-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 1.5rem;
+}
+
+.m-btn {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: var(--text-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.m-btn:hover {
+  background: var(--text);
+}
+
+.arrow-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+}
+
+.arrow-right span {
+  font-size: 1.25rem;
+  color: var(--bg);
+  font-weight: bold;
+}
+
+.m-btn-copy p {
+  color: var(--bg);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
