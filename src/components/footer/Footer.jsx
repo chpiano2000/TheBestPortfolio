@@ -6,6 +6,15 @@ const Footer = () => {
       top: 0,
       behavior: "smooth",
     });
+    // Fallback for custom scrolling environments/mobile browsers
+    document.documentElement.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+    document.body.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
