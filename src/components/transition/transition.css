@@ -16,6 +16,11 @@
   width: 100%;
   background-color: var(--text-white);
   will-change: transform;
+  margin-bottom: -1px;
+}
+
+.transition-block:last-child {
+  margin-bottom: 0;
 }
 
 .transition-text-overlay {
