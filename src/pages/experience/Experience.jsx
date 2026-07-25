@@ -1,13 +1,15 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTransition } from "../../components/transition/TransitionContext";
 import Footer from "../../components/footer/Footer";
 import { parseMarkdownWithFrontmatter } from "../../utils/markdown";
+import { useHeroLineReveal } from "../../utils/animate";
 import "./experience.css";
 
-// Import all static experience markdown files as raw text
+gsap.registerPlugin(ScrollTrigger);
+
 const experiencePosts = import.meta.glob("/src/content/experience/*.md", {
   query: "?raw",
   import: "default",
@@ -17,6 +19,18 @@ const experiencePosts = import.meta.glob("/src/content/experience/*.md", {
 const Experience = () => {
   const { startAnimation } = useTransition();
   const location = useLocation();
+
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const listRef = useRef(null);
+
+  useHeroLineReveal(
+    [
+      { ref: line1Ref, delay: 0 },
+      { ref: line2Ref, delay: 0.1 },
+    ],
+    startAnimation
+  );
 
   const experiencesList = useMemo(() => {
     return Object.entries(experiencePosts)
@@ -52,13 +66,11 @@ const Experience = () => {
       });
   }, []);
 
-  // Smooth scroll to hash anchor on mount/route change
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace("#", "");
       const element = document.getElementById(id);
       if (element) {
-        // Delay slightly to ensure elements are rendered and transition animations finish
         const timer = setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 150);
@@ -69,50 +81,65 @@ const Experience = () => {
     }
   }, [location]);
 
+  // Scroll-triggered stagger reveal for resume blocks
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+
+    const blocks = list.querySelectorAll(".experience-resume-block");
+    if (!blocks.length) return;
+
+    gsap.set(blocks, { opacity: 0, y: 50 });
+
+    const triggers = Array.from(blocks).map((block, idx) =>
+      gsap.to(block, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        delay: idx * 0.1,
+        scrollTrigger: {
+          trigger: block,
+          start: "top 90%",
+          toggleActions: "play none none none",
+          once: true,
+        },
+      })
+    );
+
+    return () => {
+      triggers.forEach((t) => {
+        if (t.scrollTrigger) t.scrollTrigger.kill();
+        t.kill();
+      });
+    };
+  }, [experiencesList]);
+
   return (
-    <motion.div className="experience-list-page">
+    <div className="experience-list-page">
       <div className="bg"></div>
 
       <section className="experience-list-hero">
         <div className="experience-list-header">
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-            >
-              WORK
-            </motion.div>
+            <div ref={line1Ref} className="h1">WORK</div>
           </h1>
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-            >
-              EXPERIENCE
-            </motion.div>
+            <div ref={line2Ref} className="h1">EXPERIENCE</div>
           </h1>
         </div>
 
-        <div className="experience-resume-list">
-          {experiencesList.map((item, idx) => (
-            <motion.div
+        <div className="experience-resume-list" ref={listRef}>
+          {experiencesList.map((item) => (
+            <div
               key={item.id}
               id={item.slug}
               className="experience-resume-block"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-              transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1], delay: idx * 0.1 }}
             >
               <div className="experience-resume-row">
-                {/* Left Column: Company & Meta */}
                 <div className="experience-resume-meta-col">
                   <h2 className="company-name">{item.company}</h2>
-                  
+
                   <div className="experience-meta-details">
                     <div className="meta-detail-row">
                       <span className="meta-detail-label">(ROLE)</span>
@@ -135,26 +162,25 @@ const Experience = () => {
                   </div>
                 </div>
 
-                {/* Right Column: Responsibilities & Content */}
                 <div className="experience-resume-content-col">
                   {item.tagline && (
                     <h3 className="company-tagline">{item.tagline}</h3>
                   )}
-                  
+
                   <div className="responsibilities-section">
                     <span className="responsibilities-title">({item.descTitle})</span>
                     <p className="responsibilities-body">{item.content}</p>
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(Experience);
+export default Experience;

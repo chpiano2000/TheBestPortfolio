@@ -1,20 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
 import { useTransition } from "../../components/transition/TransitionContext";
 import Footer from "../../components/footer/Footer";
 import { parseMarkdownWithFrontmatter } from "../../utils/markdown";
+import { useHeroLineReveal } from "../../utils/animate";
 import "./projects.css";
 
-// Import all static project markdown files as raw text
 const projectPosts = import.meta.glob("/src/content/projects/*.md", {
   query: "?raw",
   import: "default",
   eager: true,
 });
 
-// Import all project images to resolve them properly in production build
 const projectImages = import.meta.glob("/src/assets/images/projects/*.svg", {
   import: "default",
   eager: true,
@@ -22,6 +19,18 @@ const projectImages = import.meta.glob("/src/assets/images/projects/*.svg", {
 
 const Projects = () => {
   const { startAnimation } = useTransition();
+
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+
+  useHeroLineReveal(
+    [
+      { ref: line1Ref, delay: 0 },
+      { ref: line2Ref, delay: 0.1 },
+    ],
+    startAnimation
+  );
+
   const projectsList = useMemo(() => {
     return Object.entries(projectPosts).map(([path, rawContent], index) => {
       const slug = path.split("/").pop().replace(".md", "");
@@ -38,30 +47,16 @@ const Projects = () => {
   }, []);
 
   return (
-    <motion.div className="projects-page">
+    <div className="projects-page">
       <div className="bg"></div>
 
       <section className="projects-hero">
         <div className="projects-header">
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-            >
-              SELECTED
-            </motion.div>
+            <div ref={line1Ref} className="h1">SELECTED</div>
           </h1>
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-            >
-              PROJECTS
-            </motion.div>
+            <div ref={line2Ref} className="h1">PROJECTS</div>
           </h1>
         </div>
 
@@ -93,8 +88,8 @@ const Projects = () => {
       </section>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(Projects);
+export default Projects;

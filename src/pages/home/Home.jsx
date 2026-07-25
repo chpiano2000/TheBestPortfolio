@@ -1,25 +1,28 @@
-// import { useMemo } from "react";
-// import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
+import { useRef } from "react";
 import { useTransition } from "../../components/transition/TransitionContext";
 import MagneticButton from "../../components/magneticbutton/MagneticButton";
 import Footer from "../../components/footer/Footer";
 import { scrambleElement } from "../../components/menu/scramble";
-// import { parseMarkdownWithFrontmatter } from "../../utils/markdown";
+import { useHeroLineReveal } from "../../utils/animate";
 import "./home.css";
-
-// Import all static experience markdown files as raw text
-/*
-const experiencePosts = import.meta.glob("/src/content/experience/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
-*/
 
 const Home = () => {
   const { startAnimation } = useTransition();
+
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const line3Ref = useRef(null);
+  const line4Ref = useRef(null);
+
+  useHeroLineReveal(
+    [
+      { ref: line1Ref, delay: 0.1 },
+      { ref: line2Ref, delay: 0.2 },
+      { ref: line3Ref, delay: 0.3 },
+      { ref: line4Ref, delay: 0.2 },
+    ],
+    startAnimation
+  );
 
   const handleHoverScramble = (e) => {
     scrambleElement(e.currentTarget, { maxIterations: 8, charDelay: 30 });
@@ -31,88 +34,38 @@ const Home = () => {
       aboutSection.scrollIntoView({ behavior: "smooth" });
     }
   };
-  /*
-  const experiences = useMemo(() => {
-    return Object.entries(experiencePosts)
-      .map(([path, rawContent], index) => {
-        const slug = path.split("/").pop().replace(".md", "");
-        const { metadata } = parseMarkdownWithFrontmatter(rawContent);
-        return {
-          id: index + 1,
-          slug,
-          company: metadata.company || slug.toUpperCase(),
-          role: metadata.role || "",
-          period: metadata.period || "",
-        };
-      })
-      .sort((a, b) => {
-        const getEndYear = (period) => {
-          const parts = period.split("—").map((p) => p.trim());
-          if (parts.length > 1) {
-            const end = parts[1];
-            if (end.toLowerCase() === "present") return 9999;
-            const parsed = parseInt(end, 10);
-            return isNaN(parsed) ? 0 : parsed;
-          }
-          const parsed = parseInt(parts[0], 10);
-          return isNaN(parsed) ? 0 : parsed;
-        };
-        return getEndYear(b.period) - getEndYear(a.period);
-      });
-  }, []);
-  */
 
   return (
-    <motion.div className="Home">
+    <div className="Home">
       <div className="bg"></div>
 
       <section className="hero">
         <div className="headers">
           <div className="header header-1">
             <h1>
-              <motion.div
-                initial={{ top: "7rem" }}
-                animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-                transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-                className="h1"
-              >
+              <div ref={line1Ref} className="h1">
                 Dax Vo
-              </motion.div>
+              </div>
               <div className="h1-revealer"></div>
             </h1>
             <h1>
-              <motion.div
-                className="h1 indent-visual"
-                initial={{ top: "7rem" }}
-                animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-                transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.2 }}
-              >
+              <div ref={line2Ref} className="h1 indent-visual">
                 software
-              </motion.div>
+              </div>
               <div className="h1-revealer"></div>
             </h1>
             <h1>
-              <motion.div
-                className="h1 indent-dev"
-                initial={{ top: "7rem" }}
-                animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-                transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.3 }}
-              >
+              <div ref={line3Ref} className="h1 indent-dev">
                 engineer.
-              </motion.div>
+              </div>
               <div className="h1-revealer"></div>
             </h1>
           </div>
           <div className="header header-2">
             <h1>
-              <motion.div
-                className="h1"
-                initial={{ top: "7rem" }}
-                animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-                transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.2 }}
-              >
+              <div ref={line4Ref} className="h1">
                 portfolio
-              </motion.div>
+              </div>
               <div className="h1-revealer"></div>
             </h1>
           </div>
@@ -148,41 +101,13 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Experiences Navigation Drawer List
-      <div className="projects-nav">
-        <div className="projects-nav-container">
-          {experiences.map((exp) => (
-            <div key={exp.id} className="project-item">
-              <Link to={`/experience/${exp.slug}`}>
-                <div className="project-link">
-                  <div className="project-l">
-                    <div className="project-name">
-                      <h2>{exp.company}</h2>
-                    </div>
-                  </div>
-                  <div className="project-date">
-                    <p>{exp.role}</p>
-                    <p>{exp.period}</p>
-                  </div>
-                  <div className="project-dir">
-                    <p>&#8599;</p>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-      */}
-
-      {/* About Brief Section */}
       <section className="about-section">
         <div className="about-container">
           <div className="about-col">
             <p className="section-tag">(WHOAMI)</p>
             <p className="about-bio">
               I&apos;m a <strong>software engineer</strong> with a strong passion for <strong>containers and container orchestration</strong>. I build and maintain <strong>automated, high-performance environments</strong>—from coordinating robust <strong>Change Data Capture pipelines</strong> to deploying highly available microservices in <strong>Django and Go</strong>. I enjoy bridging the gap between intricate backend logic and robust platform operations, ensuring <strong>zero downtime</strong> and strict <strong>data integrity</strong> across enterprise systems. I thrive in collaborative environments where I can build the underlying systems that <strong>empower developers to move faster</strong>. <br /><br />
-              <strong>Focus on writing great code, and I’ll automate the rest.</strong>
+              <strong>Focus on writing great code, and I&rsquo;ll automate the rest.</strong>
             </p>
           </div>
           <div className="about-col">
@@ -195,10 +120,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Unified Footer Component */}
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(Home);
+export default Home;

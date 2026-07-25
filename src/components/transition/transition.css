@@ -16,6 +16,8 @@
   width: 100%;
   background-color: var(--text-white);
   will-change: transform;
+  transform: scaleX(0);
+  transform-origin: left center;
   margin-bottom: -1px;
 }
 
@@ -55,22 +57,5 @@
 .word {
   display: inline-block;
   will-change: transform;
-}
-
-.exit-block {
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-
-.enter-block {
-  transform: scaleX(1);
-  transform-origin: right center;
-}
-
-.exit-word {
   transform: translateY(100%);
-}
-
-.enter-word {
-  transform: translateY(0%);
 }

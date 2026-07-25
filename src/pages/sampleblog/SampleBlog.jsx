@@ -1,14 +1,11 @@
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
 import { marked } from "marked";
 import Footer from "../../components/footer/Footer";
 import BackButton from "../../components/backbutton/BackButton";
 import { parseMarkdownWithFrontmatter } from "../../utils/markdown";
 import "./sample-blog.css";
 
-// Import all static markdown files from /src/content/blog as raw text strings
 const markdownPosts = import.meta.glob("/src/content/blog/*.md", {
   query: "?raw",
   import: "default",
@@ -18,17 +15,13 @@ const markdownPosts = import.meta.glob("/src/content/blog/*.md", {
 const SampleBlog = () => {
   const { slug } = useParams();
 
-  // Find matching markdown file or default to minimalist-interaction-systems
   const targetSlug = slug || "minimalist-interaction-systems";
 
   const rawMarkdown = useMemo(() => {
     const key = Object.keys(markdownPosts).find((path) =>
       path.endsWith(`${targetSlug}.md`)
     );
-    if (key) {
-      return markdownPosts[key];
-    }
-    // Fallback if key not found
+    if (key) return markdownPosts[key];
     const firstKey = Object.keys(markdownPosts)[0];
     return firstKey ? markdownPosts[firstKey] : "# Post Not Found";
   }, [targetSlug]);
@@ -42,7 +35,7 @@ const SampleBlog = () => {
   }, [content]);
 
   return (
-    <motion.div className="sample-blog-page">
+    <div className="sample-blog-page">
       <div className="bg"></div>
 
       <BackButton />
@@ -76,7 +69,6 @@ const SampleBlog = () => {
           )}
         </header>
 
-        {/* Rendered HTML from static markdown file */}
         <div
           className="markdown-rendered-content"
           dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -84,8 +76,8 @@ const SampleBlog = () => {
 
         <Footer />
       </article>
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(SampleBlog);
+export default SampleBlog;

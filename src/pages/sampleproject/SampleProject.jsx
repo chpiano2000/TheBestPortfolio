@@ -1,39 +1,42 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
+import gsap from "gsap";
 import BackButton from "../../components/backbutton/BackButton";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
 import { useTransition } from "../../components/transition/TransitionContext";
 import Footer from "../../components/footer/Footer";
 import { parseMarkdownWithFrontmatter } from "../../utils/markdown";
 import "./sample-project.css";
 
-// Import all static project markdown files as raw text
 const projectPosts = import.meta.glob("/src/content/projects/*.md", {
   query: "?raw",
   import: "default",
   eager: true,
 });
 
-// Import all project images to resolve them properly in production build
 const projectImages = import.meta.glob("/src/assets/images/projects/*.svg", {
   import: "default",
   eager: true,
 });
 
+const CLIP_HIDDEN = "polygon(0 0, 0 0, 0 100%, 0% 100%)";
+const CLIP_SHOWN = "polygon(0 0, 100% 0, 100% 100%, 0 100%)";
+
 const SampleProject = () => {
   const { startAnimation } = useTransition();
   const { slug } = useParams();
-  
+
+  const titleRef = useRef(null);
+  const imgWrapRef = useRef(null);
+  const imgRef = useRef(null);
+  const descRef = useRef(null);
+
   const targetSlug = slug || "homelab";
 
   const rawMarkdown = useMemo(() => {
     const key = Object.keys(projectPosts).find((path) =>
       path.endsWith(`${targetSlug}.md`)
     );
-    if (key) {
-      return projectPosts[key];
-    }
+    if (key) return projectPosts[key];
     const firstKey = Object.keys(projectPosts)[0];
     return firstKey ? projectPosts[firstKey] : "";
   }, [targetSlug]);
@@ -52,57 +55,88 @@ const SampleProject = () => {
     return metadata.gallery.map((path) => projectImages[path] || path);
   }, [metadata.gallery]);
 
-  // Capitalize headings safely
   const projectTitle = (metadata.title || targetSlug).toUpperCase();
   const projectCategory = (metadata.category || "").toUpperCase();
 
+  useLayoutEffect(() => {
+    if (titleRef.current) {
+      gsap.set(titleRef.current, { opacity: 0, y: 50 });
+    }
+    if (imgWrapRef.current) {
+      gsap.set(imgWrapRef.current, { clipPath: CLIP_HIDDEN });
+    }
+    if (imgRef.current) {
+      gsap.set(imgRef.current, { scale: 1.4 });
+    }
+    if (descRef.current) {
+      gsap.set(descRef.current, { x: -40, opacity: 0 });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!startAnimation) return;
+    const ease = "expo.inOut";
+
+    if (titleRef.current) {
+      gsap.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease,
+      });
+    }
+    if (imgWrapRef.current) {
+      gsap.to(imgWrapRef.current, {
+        clipPath: CLIP_SHOWN,
+        duration: 1.5,
+        ease,
+      });
+    }
+    if (imgRef.current) {
+      gsap.to(imgRef.current, {
+        scale: 1,
+        duration: 1.5,
+        ease,
+      });
+    }
+    if (descRef.current) {
+      gsap.to(descRef.current, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease,
+        delay: 0.25,
+      });
+    }
+  }, [startAnimation]);
+
   return (
-    <motion.div className="sample-project-page">
+    <div className="sample-project-page">
       <div className="bg"></div>
 
       <BackButton />
 
       <div className="project-container">
         <div className="project-header">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-          >
+          <h1 ref={titleRef}>
             {projectTitle} {projectCategory && `• ${projectCategory}`}
-          </motion.h1>
+          </h1>
           {metadata.tagline && <p className="project-tagline">{metadata.tagline.toUpperCase()}</p>}
         </div>
 
         <div className="project-info">
-          <motion.div
-            className="project-img"
-            initial={{ clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-            animate={startAnimation ? { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" } : { clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)" }}
-            transition={{ duration: 1.5, ease: [0.83, 0, 0.17, 1] }}
-          >
-            <motion.img
-              src={heroImage}
-              alt="Project Hero"
-              initial={{ scale: 1.4 }}
-              animate={startAnimation ? { scale: 1 } : { scale: 1.4 }}
-              transition={{ duration: 1.5, ease: [0.83, 0, 0.17, 1] }}
-            />
-          </motion.div>
+          <div className="project-img" ref={imgWrapRef}>
+            <img ref={imgRef} src={heroImage} alt="Project Hero" />
+          </div>
 
-          <motion.div
-            className="project-description"
-            initial={{ x: -40, opacity: 0 }}
-            animate={startAnimation ? { x: 0, opacity: 1 } : { x: -40, opacity: 0 }}
-            transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.25 }}
-          >
+          <div className="project-description" ref={descRef}>
             {metadata.descTitle && (
               <p className="desc-title">
                 <b>{metadata.descTitle.toUpperCase()}</b>
               </p>
             )}
             <p className="desc-body">{content}</p>
-          </motion.div>
+          </div>
         </div>
 
         {galleryImages.length > 0 && (
@@ -117,8 +151,8 @@ const SampleProject = () => {
 
         <Footer />
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(SampleProject);
+export default SampleProject;

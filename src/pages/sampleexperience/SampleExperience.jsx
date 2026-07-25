@@ -1,14 +1,12 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
+import gsap from "gsap";
 import BackButton from "../../components/backbutton/BackButton";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
 import { useTransition } from "../../components/transition/TransitionContext";
 import Footer from "../../components/footer/Footer";
 import { parseMarkdownWithFrontmatter } from "../../utils/markdown";
 import "./sample-experience.css";
 
-// Import all static experience markdown files as raw text
 const experiencePosts = import.meta.glob("/src/content/experience/*.md", {
   query: "?raw",
   import: "default",
@@ -18,16 +16,18 @@ const experiencePosts = import.meta.glob("/src/content/experience/*.md", {
 const SampleExperience = () => {
   const { startAnimation } = useTransition();
   const { slug } = useParams();
-  
+
+  const titleRef = useRef(null);
+  const metaRef = useRef(null);
+  const contentRef = useRef(null);
+
   const targetSlug = slug || "sotatek";
 
   const rawMarkdown = useMemo(() => {
     const key = Object.keys(experiencePosts).find((path) =>
       path.endsWith(`${targetSlug}.md`)
     );
-    if (key) {
-      return experiencePosts[key];
-    }
+    if (key) return experiencePosts[key];
     const firstKey = Object.keys(experiencePosts)[0];
     return firstKey ? experiencePosts[firstKey] : "";
   }, [targetSlug]);
@@ -36,7 +36,6 @@ const SampleExperience = () => {
     return parseMarkdownWithFrontmatter(rawMarkdown);
   }, [rawMarkdown]);
 
-  // Safe capitalizations
   const company = (metadata.company || targetSlug).toUpperCase();
   const role = (metadata.role || "").toUpperCase();
   const period = (metadata.period || "").toUpperCase();
@@ -45,31 +44,64 @@ const SampleExperience = () => {
   const descTitle = (metadata.descTitle || "KEY ACHIEVEMENTS").toUpperCase();
   const tagline = (metadata.tagline || "").toUpperCase();
 
+  useLayoutEffect(() => {
+    if (titleRef.current) {
+      gsap.set(titleRef.current, { opacity: 0, y: 50 });
+    }
+    if (metaRef.current) {
+      gsap.set(metaRef.current, { x: -40, opacity: 0 });
+    }
+    if (contentRef.current) {
+      gsap.set(contentRef.current, { x: 40, opacity: 0 });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!startAnimation) return;
+    const ease = "expo.inOut";
+
+    if (titleRef.current) {
+      gsap.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        ease,
+      });
+    }
+    if (metaRef.current) {
+      gsap.to(metaRef.current, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease,
+        delay: 0.1,
+      });
+    }
+    if (contentRef.current) {
+      gsap.to(contentRef.current, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease,
+        delay: 0.2,
+      });
+    }
+  }, [startAnimation]);
+
   return (
-    <motion.div className="sample-experience-page">
+    <div className="sample-experience-page">
       <div className="bg"></div>
 
       <BackButton />
 
       <div className="experience-container">
         <div className="experience-header">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={startAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-          >
-            {company}
-          </motion.h1>
+          <h1 ref={titleRef}>{company}</h1>
           {tagline && <p className="experience-tagline">{tagline}</p>}
         </div>
 
         <div className="experience-info-grid">
-          <motion.div
-            className="experience-meta-panel"
-            initial={{ x: -40, opacity: 0 }}
-            animate={startAnimation ? { x: 0, opacity: 1 } : { x: -40, opacity: 0 }}
-            transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-          >
+          <div className="experience-meta-panel" ref={metaRef}>
             <div className="meta-row">
               <span className="meta-label">(ROLE)</span>
               <span className="meta-value">{role}</span>
@@ -86,25 +118,20 @@ const SampleExperience = () => {
               <span className="meta-label">(STACK)</span>
               <span className="meta-value">{technologies}</span>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="experience-content"
-            initial={{ x: 40, opacity: 0 }}
-            animate={startAnimation ? { x: 0, opacity: 1 } : { x: 40, opacity: 0 }}
-            transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.2 }}
-          >
+          <div className="experience-content" ref={contentRef}>
             <p className="desc-title">
               <b>{descTitle}</b>
             </p>
             <p className="desc-body">{content}</p>
-          </motion.div>
+          </div>
         </div>
 
         <Footer />
       </div>
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(SampleExperience);
+export default SampleExperience;

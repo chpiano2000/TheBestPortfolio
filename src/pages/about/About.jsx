@@ -1,53 +1,65 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
+import gsap from "gsap";
 import { useTransition } from "../../components/transition/TransitionContext";
 import MagneticButton from "../../components/magneticbutton/MagneticButton";
 import Footer from "../../components/footer/Footer";
 import PortraitImg from "../../assets/images/home/portrait.svg";
+import { useHeroLineReveal } from "../../utils/animate";
 import "./about.css";
 
 const About = () => {
   const { startAnimation } = useTransition();
 
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+  const portraitRef = useRef(null);
+
+  useHeroLineReveal(
+    [
+      { ref: line1Ref, delay: 0 },
+      { ref: line2Ref, delay: 0.1 },
+    ],
+    startAnimation
+  );
+
+  useEffect(() => {
+    if (portraitRef.current) {
+      gsap.set(portraitRef.current, { scale: 1.1, opacity: 0 });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!startAnimation) return;
+    if (!portraitRef.current) return;
+    gsap.to(portraitRef.current, {
+      scale: 1,
+      opacity: 1,
+      duration: 1.4,
+      ease: "expo.inOut",
+      delay: 0.3,
+    });
+  }, [startAnimation]);
+
   return (
-    <motion.div className="about-page">
+    <div className="about-page">
       <div className="bg"></div>
 
       <section className="about-hero">
         <div className="about-header">
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-            >
-              ABOUT
-            </motion.div>
+            <div ref={line1Ref} className="h1">ABOUT</div>
           </h1>
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-            >
-              VO
-            </motion.div>
+            <div ref={line2Ref} className="h1">VO</div>
           </h1>
         </div>
 
         <div className="about-grid">
           <div className="about-img-col">
-            <motion.div
-              className="portrait-frame"
-              initial={{ scale: 1.1, opacity: 0 }}
-              animate={startAnimation ? { scale: 1, opacity: 1 } : { scale: 1.1, opacity: 0 }}
-              transition={{ duration: 1.4, ease: [0.83, 0, 0.17, 1], delay: 0.3 }}
-            >
+            <div ref={portraitRef} className="portrait-frame">
               <img src={PortraitImg} alt="Dax Vo Portrait" />
-            </motion.div>
+            </div>
           </div>
           <div className="about-text-col">
             <p className="lead-para">
@@ -92,7 +104,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Education */}
       <section className="experience-section" style={{ marginTop: "4rem" }}>
         <h2>EDUCATION</h2>
         <div className="exp-table">
@@ -110,8 +121,8 @@ const About = () => {
       </section>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(About);
+export default About;

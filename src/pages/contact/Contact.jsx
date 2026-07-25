@@ -1,37 +1,35 @@
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
+import { useRef } from "react";
 import { useTransition } from "../../components/transition/TransitionContext";
 import MagneticButton from "../../components/magneticbutton/MagneticButton";
 import Footer from "../../components/footer/Footer";
+import { useHeroLineReveal } from "../../utils/animate";
 import "./contact.css";
 
 const Contact = () => {
   const { startAnimation } = useTransition();
+
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+
+  useHeroLineReveal(
+    [
+      { ref: line1Ref, delay: 0 },
+      { ref: line2Ref, delay: 0.1 },
+    ],
+    startAnimation
+  );
+
   return (
-    <motion.div className="contact-page">
+    <div className="contact-page">
       <div className="bg"></div>
 
       <section className="contact-hero">
         <div className="contact-header">
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-            >
-              LET&apos;S
-            </motion.div>
+            <div ref={line1Ref} className="h1">LET&apos;S</div>
           </h1>
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-            >
-              CONNECT
-            </motion.div>
+            <div ref={line2Ref} className="h1">CONNECT</div>
           </h1>
         </div>
 
@@ -81,8 +79,8 @@ const Contact = () => {
       </section>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(Contact);
+export default Contact;

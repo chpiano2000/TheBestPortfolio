@@ -1,20 +1,18 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import Transition from "../../components/transition/Transition";
 import { useTransition } from "../../components/transition/TransitionContext";
 import Footer from "../../components/footer/Footer";
+import { useHeroLineReveal } from "../../utils/animate";
 import "./blog.css";
 
 import { parseMarkdownWithFrontmatter, parseDate } from "../../utils/markdown";
 
-// Import all static markdown files from /src/content/blog as raw text strings
 const markdownPosts = import.meta.glob("/src/content/blog/*.md", {
   query: "?raw",
   import: "default",
   eager: true,
 });
 
-// Import all blog images to resolve them properly in production build
 const blogImages = import.meta.glob("/src/assets/images/blog/*.svg", {
   import: "default",
   eager: true,
@@ -39,35 +37,32 @@ const posts = Object.entries(markdownPosts)
 
 const Blog = () => {
   const { startAnimation } = useTransition();
+
+  const line1Ref = useRef(null);
+  const line2Ref = useRef(null);
+
+  useHeroLineReveal(
+    [
+      { ref: line1Ref, delay: 0 },
+      { ref: line2Ref, delay: 0.1 },
+    ],
+    startAnimation
+  );
+
   return (
-    <motion.div className="blog-page">
+    <div className="blog-page">
       <div className="bg"></div>
 
       <section className="blog-hero">
         <div className="blog-header">
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1] }}
-            >
-              JOURNAL
-            </motion.div>
+            <div ref={line1Ref} className="h1">JOURNAL</div>
           </h1>
           <h1>
-            <motion.div
-              className="h1"
-              initial={{ top: "7rem" }}
-              animate={startAnimation ? { top: 0 } : { top: "7rem" }}
-              transition={{ duration: 1.2, ease: [0.83, 0, 0.17, 1], delay: 0.1 }}
-            >
-              & THOUGHTS
-            </motion.div>
+            <div ref={line2Ref} className="h1">&amp; THOUGHTS</div>
           </h1>
         </div>
 
-        {/* Text-focused Journal List without images */}
         <div className="blog-posts-list">
           {posts.map((post) => (
             <article key={post.id} className="blog-item">
@@ -103,8 +98,8 @@ const Blog = () => {
       </section>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 
-export default Transition(Blog);
+export default Blog;
